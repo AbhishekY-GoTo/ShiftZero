@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "phase": "1-mvp",
+  "approved_autonomous_actions": [
+    "get_pod_status",
+    "get_pod_logs",
+    "check_deployment_history",
+    "restart_deployment",
+    "update_pagerduty_incident"
+  ],
+  "require_human_approval": [
+    "scale_deployment",
+    "rollback_deployment",
+    "delete_resources",
+    "modify_database",
+    "change_configuration"
+  ],
+  "rate_limits": {
+    "restart_deployment": {
+      "max_per_hour": 3,
+      "max_per_service_per_hour": 1,
+      "cooldown_minutes": 15
+    }
+  },
+  "confidence_thresholds": {
+    "auto_remediate": 0.85,
+    "recommend_with_approval": 0.70,
+    "escalate_immediately_below": 0.70
+  },
+  "always_escalate_patterns": [
+    "security_incident",
+    "data_loss",
+    "database_corruption",
+    "production_database_*",
+    "payment_service_*"
+  ],
+  "service_criticality": {
+    "high": ["payment-service", "auth-service", "user-database"],
+    "medium": ["api-service", "notification-service"],
+    "low": ["monitoring-agent", "log-collector"]
+  },
+  "deployment_windows": {
+    "freeze_during": [
+      {
+        "reason": "business_hours_us",
+        "days": ["mon", "tue", "wed", "thu", "fri"],
+        "hours_utc": "13:00-22:00",
+        "severity_threshold": "high"
+      }
+    ]
+  }
+}

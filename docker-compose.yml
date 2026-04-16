@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for incident history
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: shiftzero
+      POSTGRES_USER: shiftzero
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shiftzero"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ShiftZero agent (build after implementation)
+  # shiftzero:
+  #   build: .
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - DATABASE_URL=postgresql://shiftzero:password@postgres:5432/shiftzero
+  #     - AWS_REGION=${AWS_REGION}
+  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+  #     - PAGERDUTY_API_KEY=${PAGERDUTY_API_KEY}
+  #     - PAGERDUTY_WEBHOOK_SECRET=${PAGERDUTY_WEBHOOK_SECRET}
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ~/.kube:/root/.kube:ro
+  #   restart: unless-stopped
+
+volumes:
+  postgres_data:
