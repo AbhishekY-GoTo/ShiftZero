@@ -1,12 +1,8 @@
-# Slack Message for Hackathon Team
 
-Copy/paste this into Slack:
-
----
 
 ## 🚀 ShiftZero - Autonomous On-Call Agent (Phase 1 Complete!)
 
-Hey team! 👋 I've built the MVP of **ShiftZero** - an AI agent that acts as an autonomous on-call engineer. It's **working and tested** with real PagerDuty incidents!
+**ShiftZero** - an AI agent that acts as an autonomous on-call engineer. It's **working and tested** with real PagerDuty incidents!
 
 ### 🎯 What It Does
 Receives PagerDuty alerts → Investigates using Claude AI → Either auto-remediates OR escalates with a detailed diagnostic report
@@ -14,7 +10,6 @@ Receives PagerDuty alerts → Investigates using Claude AI → Either auto-remed
 **Demo**: The agent analyzed a pod crash, diagnosed OOM with 90% confidence, and added 2 notes to this real incident: https://getjive.pagerduty.com/incidents/Q2E8PWVZUVCI96
 
 **Impact**: MTTR drops from 10+ minutes to <60 seconds for standard issues 📉
-
 ---
 
 ### ✅ What's Working (Tested!)
@@ -34,7 +29,6 @@ Receives PagerDuty alerts → Investigates using Claude AI → Either auto-remed
 - Follow-up recommendations
 
 ---
-
 ### ⚠️ What's NOT Working (Yet)
 - ❌ **Kubernetes** - Not configured (agent escalates instead of restarting pods) - **5 min fix**
 - ❌ **Slack notifications** - Stub only (everything goes to PagerDuty) - **20 min fix**
